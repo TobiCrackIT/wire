@@ -5,6 +5,7 @@ import 'package:moovy/ui/views/login/login_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
+  //Required if a platform channel is called before runApp()
   WidgetsFlutterBinding.ensureInitialized();
   final sharedPreferences = await SharedPreferences.getInstance();
   runApp(
