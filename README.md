@@ -8,6 +8,10 @@ This project is a starting point for a Flutter application.
 
 This project uses Flutter SDK version 2.2.3
 
+For the UI, I used a UI package that I created sometimes ago. You can check it out here :[Eve UI Package](https://github.com/TobiCrackIT/eve_ui_package.git)
+
+
+
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
