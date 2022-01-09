@@ -1,0 +1,1 @@
+enum LoginStatus { idle, loading, success, failed }
