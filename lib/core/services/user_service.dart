@@ -1,4 +1,4 @@
-import 'package:moovy/core/api_route.dart';
+import 'package:moovy/core/constants/api_route.dart';
 import 'package:moovy/core/models/account.dart';
 import 'package:moovy/core/models/login_request.dart';
 import 'package:moovy/core/models/user.dart';
