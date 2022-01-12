@@ -1,10 +1,10 @@
 import 'package:moovy/core/constants/api_route.dart';
 import 'package:moovy/core/models/account.dart';
 import 'package:moovy/core/models/login_request.dart';
+import 'package:moovy/core/models/transactions.dart';
 import 'package:moovy/core/models/user.dart';
 import 'package:moovy/core/services/http_service.dart';
 import 'package:moovy/core/utils/exceptions.dart';
-
 
 class UserService {
   HttpService _httpService = HttpService();
@@ -26,16 +26,36 @@ class UserService {
   }
 
   Future<Account> getAccount(String token) async {
-
-    var header= <String, String>{
+    var header = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      "Authorization":"Bearer $token"
+      "Authorization": "Bearer $token"
     };
-    
+
     try {
       final response = await _httpService.get(
-          '${ApiRoute.BASE}/v1/user/wallet/mobile/banking',headers:header);
+          '${ApiRoute.BASE}/v1/user/wallet/mobile/banking',
+          headers: header);
       return Account.fromJson(response);
+    } on Exception catch (e) {
+      print("ERROR - ${e.toString()}");
+      throw ApiException(e.toString());
+    }
+  }
+
+  Future<Transactions> getTransactions(String token) async {
+    var header = <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      "Authorization": "Bearer $token"
+    };
+
+    try {
+      final response = await _httpService.get(
+          '${ApiRoute.BASE}/v1/user/wallet/transactions/',
+          headers: header);
+
+      print("${response.toString()}");
+
+      return Transactions.fromJson(response);
     } on Exception catch (e) {
       print("ERROR - ${e.toString()}");
       throw ApiException(e.toString());

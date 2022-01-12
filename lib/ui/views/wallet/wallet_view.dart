@@ -11,7 +11,6 @@ import 'package:moovy/ui/views/login/login_view_model.dart';
 import 'package:moovy/ui/views/wallet/wallet_view_model.dart';
 import 'package:moovy/ui/widgets/currency.dart';
 import 'package:moovy/ui/widgets/loader.dart';
-import 'package:moovy/ui/widgets/wrapper.dart';
 
 class WalletView extends ConsumerWidget {
   @override
@@ -19,56 +18,52 @@ class WalletView extends ConsumerWidget {
     final wallets = watch(walletsProvider);
     final user = watch(userProvider);
 
-    return Wrapper(
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _UserInfo(
-                userName: user.data!.hasWalletUsername!
-                    ? "${user.data!.wirepayTag}"
-                    : "${user.data!.firstName}",
-                hasUserName: user.data!.hasWalletUsername!,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _UserInfo(
+            userName: user.data!.hasWalletUsername!
+                ? "${user.data!.wirepayTag}"
+                : "${user.data!.firstName}",
+            hasUserName: user.data!.hasWalletUsername!,
+          ),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(8),
+            color: Colors.grey[300],
+            child: Text(
+              "WALLETS",
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
               ),
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(8),
-                color: Colors.grey[300],
-                child: Text(
-                  "WALLETS",
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 12,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-              ),
-              wallets.maybeWhen(
-                orElse: () => Center(
-                    child: Padding(
+            ),
+          ),
+          wallets.maybeWhen(
+            orElse: () => Center(
+                child: Padding(
                   padding: const EdgeInsets.only(top: 8),
                   child: Loader(),
                 )),
-                data: (userWallets) => Expanded(
-                  child: ListView.separated(
-                    padding: EdgeInsets.symmetric(horizontal: 8),
-                    itemBuilder: (_, index) {
-                      final wallet = userWallets[index];
-                      return _WalletTile(wallet: wallet);
-                    },
-                    separatorBuilder: (_, index) {
-                      return Divider();
-                    },
-                    itemCount: userWallets.length,
-                  ),
-                ),
+            data: (userWallets) => Expanded(
+              child: ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                itemBuilder: (_, index) {
+                  final wallet = userWallets[index];
+                  return _WalletTile(wallet: wallet);
+                },
+                separatorBuilder: (_, index) {
+                  return Divider();
+                },
+                itemCount: userWallets.length,
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

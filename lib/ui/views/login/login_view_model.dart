@@ -13,6 +13,7 @@ final loginNotifier = ChangeNotifierProvider<LoginViewModel>((ref) {
   return LoginViewModel(localStorageService);
 });
 
+
 final userProvider = ScopedProvider<User>((_) => throw UnimplementedError());
 
 class LoginViewModel extends ChangeNotifier {

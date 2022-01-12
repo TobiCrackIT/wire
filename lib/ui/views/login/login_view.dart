@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moovy/core/constants/app_colors.dart';
 import 'package:moovy/core/enums/login_status.dart';
 import 'package:moovy/core/utils/alerts.dart';
+import 'package:moovy/ui/views/base/base_view.dart';
 import 'package:moovy/ui/views/login/login_view_model.dart';
-import 'package:moovy/ui/views/wallet/wallet_view.dart';
 import 'package:moovy/ui/widgets/loader.dart';
 
 class LoginView extends ConsumerWidget {
@@ -33,7 +33,7 @@ class LoginView extends ConsumerWidget {
           MaterialPageRoute(
             builder: (context) => ProviderScope(
               overrides: [userProvider.overrideWithValue(model.currentUser!)],
-              child: WalletView(),
+              child: BaseView(),
             ),
           ),
         );
