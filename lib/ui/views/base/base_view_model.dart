@@ -17,8 +17,8 @@ class BaseViewModel extends ChangeNotifier {
 
   List<Widget> _screens = [
     WalletView(),
-    TransactionsView(),
     CardView(),
+    TransactionsView(),
     ProfileView()
   ];
   List<Widget> get screens => _screens;

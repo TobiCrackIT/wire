@@ -27,31 +27,31 @@ class BaseView extends ConsumerWidget {
               items: [
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home,
+                    Icons.account_balance_wallet_outlined,
                   ),
                   label: "Wallets",
                   activeIcon: Icon(
-                    Icons.home,
+                    Icons.account_balance_wallet_outlined,
                     color: AppColors.blue,
                   ),
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.card_giftcard,
-                  ),
-                  label: "Transactions",
-                  activeIcon: Icon(
-                    Icons.wallet_travel,
-                    color: AppColors.blue,
-                  ),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.transfer_within_a_station,
+                    Icons.credit_card,
                   ),
                   label: "Cards",
                   activeIcon: Icon(
-                    Icons.transfer_within_a_station,
+                    Icons.credit_card,
+                    color: AppColors.blue,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.trending_up_outlined,
+                  ),
+                  label: "Transactions",
+                  activeIcon: Icon(
+                    Icons.trending_up_outlined,
                     color: AppColors.blue,
                   ),
                 ),
