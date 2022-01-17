@@ -15,6 +15,7 @@ class BaseView extends ConsumerWidget {
             backgroundColor: Colors.white,
             body: model.screens[model.currentIndex],
             bottomNavigationBar: BottomNavigationBar(
+              elevation: 0,
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.white,
               selectedItemColor: AppColors.blue,
