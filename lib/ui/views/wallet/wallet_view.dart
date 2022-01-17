@@ -37,18 +37,18 @@ class WalletView extends ConsumerWidget {
             child: Text(
               "WALLETS",
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                fontSize: 12,
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-              ),
+                    fontSize: 12,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
             ),
           ),
           wallets.maybeWhen(
             orElse: () => Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Loader(),
-                )),
+              padding: const EdgeInsets.only(top: 8),
+              child: Loader(),
+            )),
             data: (userWallets) => Expanded(
               child: ListView.separated(
                 padding: EdgeInsets.symmetric(horizontal: 8),
@@ -72,7 +72,8 @@ class WalletView extends ConsumerWidget {
 class _UserInfo extends StatelessWidget {
   final String userName;
   final bool hasUserName;
-  const _UserInfo({Key? key, required this.userName, this.hasUserName:false}) : super(key: key);
+  const _UserInfo({Key? key, required this.userName, this.hasUserName: false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -102,12 +103,14 @@ class _UserInfo extends StatelessWidget {
                       ),
                 ),
               ),
-              hasUserName? SvgPicture.asset(
-                AssetPaths.qr,
-                height: 36,
-                width: 36,
-                color: Colors.white,
-              ):Container(),
+              hasUserName
+                  ? SvgPicture.asset(
+                      AssetPaths.qr,
+                      height: 36,
+                      width: 36,
+                      color: Colors.white,
+                    )
+                  : Container(),
             ],
           ),
           SizedBox(
@@ -147,7 +150,7 @@ class _UserInfo extends StatelessWidget {
               Expanded(
                 child: EveButton(
                   title: 'WITHDRAW',
-                  bgColor:Color(0xFF0A1172),
+                  bgColor: Color(0xFF0A1172),
                   busy: false,
                   disabled: false,
                   borderRadius: 10,

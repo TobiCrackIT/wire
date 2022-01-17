@@ -20,7 +20,6 @@ class UserService {
       currentUser = User.fromJson(response!);
       return currentUser;
     } on Exception catch (e) {
-      print("ERROR - ${e.toString()}");
       throw ApiException(e.toString());
     }
   }
@@ -37,7 +36,6 @@ class UserService {
           headers: header);
       return Account.fromJson(response);
     } on Exception catch (e) {
-      print("ERROR - ${e.toString()}");
       throw ApiException(e.toString());
     }
   }
@@ -53,11 +51,8 @@ class UserService {
           '${ApiRoute.BASE}/v1/user/wallet/transactions/',
           headers: header);
 
-      print("${response.toString()}");
-
       return Transactions.fromJson(response);
     } on Exception catch (e) {
-      print("ERROR - ${e.toString()}");
       throw ApiException(e.toString());
     }
   }

@@ -6,7 +6,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text("Cards"),
+      child: Text("Profile"),
     );
   }
 }
