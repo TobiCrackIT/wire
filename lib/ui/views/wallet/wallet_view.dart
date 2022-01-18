@@ -50,7 +50,7 @@ class WalletView extends ConsumerWidget {
                 orElse: () => Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8),
-                    child: Loader(),
+                    child: Text("An error occurred",textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),),
                   ),
                 ),
                 loading: () => Center(
