@@ -23,19 +23,8 @@ class TransactionsView extends ConsumerWidget {
         ),
         body: transactions.maybeWhen(
           orElse: () => Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.hourglass_empty,
-                color: AppColors.blue,
-                size: 40,
-              ),
-              Text("No transaction(s) yet."),
-            ],
-          )),
+            child: _EmptyView(),
+          ),
           loading: () {
             final cachedTransactions = watch(cachedTransactionsProvider).state;
             return cachedTransactions.isNotEmpty
@@ -52,6 +41,47 @@ class TransactionsView extends ConsumerWidget {
               Center(child: Text("An error occurred: ${e.toString()}")),
         ),
       ),
+    );
+  }
+}
+
+class _UserTransactionsView extends ConsumerWidget {
+  final List<Transaction> transactions;
+
+  _UserTransactionsView({Key? key, required this.transactions})
+      : super(key: key);
+
+  final controller = RefreshController(initialRefresh: false);
+
+  @override
+  Widget build(BuildContext context, watch) {
+    return SmartRefresher(
+      enablePullDown: true,
+      enablePullUp: false,
+      onRefresh: () async {
+        context.refresh(transactionsProvider);
+        await Future.delayed(Duration(milliseconds: 3000));
+        controller.refreshCompleted();
+      },
+      controller: controller,
+      child: transactions.isEmpty
+          ? ListView(
+              children: [_EmptyView()],
+            )
+          : ListView.separated(
+              shrinkWrap: true,
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              itemBuilder: (_, index) {
+                final _currentTransaction = transactions[index];
+                return _TransactionTile(
+                  transaction: _currentTransaction,
+                );
+              },
+              separatorBuilder: (_, index) {
+                return Divider();
+              },
+              itemCount: transactions.length,
+            ),
     );
   }
 }
@@ -84,53 +114,31 @@ class _TransactionTile extends StatelessWidget {
   }
 }
 
-class _UserTransactionsView extends ConsumerWidget {
-  final List<Transaction> transactions;
-
-  _UserTransactionsView({Key? key, required this.transactions})
-      : super(key: key);
-
-  final controller = RefreshController(initialRefresh: false);
+class _EmptyView extends StatelessWidget {
+  const _EmptyView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, watch) {
-    return SmartRefresher(
-      enablePullDown: true,
-      enablePullUp: false,
-      onRefresh: () {
-        context.refresh(transactionsProvider);
-        //Future.delayed(Duration(milliseconds: 5000));
-        controller.refreshCompleted();
-      },
-      controller: controller,
-      child: transactions.isEmpty
-          ? ListView(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Icon(
-                  Icons.hourglass_empty,
-                  color: AppColors.blue,
-                  size: 60,
-                ),
-                Text("No transaction(s) yet.",textAlign: TextAlign.center,),
-              ],
-            )
-          : ListView.separated(
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              itemBuilder: (_, index) {
-                final _currentTransaction = transactions[index];
-                return _TransactionTile(
-                  transaction: _currentTransaction,
-                );
-              },
-              separatorBuilder: (_, index) {
-                return Divider();
-              },
-              itemCount: transactions.length,
-            ),
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: 50,
+        ),
+        Icon(
+          Icons.hourglass_empty,
+          color: AppColors.blue,
+          size: 60,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          "You are yet to make a transaction.",
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

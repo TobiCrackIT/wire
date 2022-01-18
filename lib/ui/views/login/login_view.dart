@@ -44,9 +44,7 @@ class LoginView extends ConsumerWidget {
     //IgnorePointer makes it impossible to modify anything on the screen when a network request is loading
     return IgnorePointer(
       ignoring: model.loginStatus == LoginStatus.loading,
-      child: Container(
-        //height: MediaQuery.of(context).size.height,
-        child: SafeArea(
+      child:  SafeArea(
           child: Scaffold(
             backgroundColor: Colors.white,
               appBar: AppBar(
@@ -128,9 +126,9 @@ class LoginView extends ConsumerWidget {
                     EveSpace.verticalSpaceLarge,
                   ],
                 ),
-              )),
+              ),
+          ),
         ),
-      ),
     );
   }
 }

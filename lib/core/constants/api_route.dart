@@ -1,3 +1,3 @@
 class ApiRoute {
-  static const BASE="https://wirepay.herokuapp.com";
+  static const BASE="https://wirepay-sandbox.herokuapp.com";
 }

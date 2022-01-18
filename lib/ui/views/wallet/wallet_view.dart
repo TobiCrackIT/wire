@@ -43,24 +43,30 @@ class WalletView extends ConsumerWidget {
                   ),
             ),
           ),
-          wallets.maybeWhen(
-            orElse: () => Center(
-                child: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Loader(),
-            )),
-            data: (userWallets) => Expanded(
-              child: ListView.separated(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                itemBuilder: (_, index) {
-                  final wallet = userWallets[index];
-                  return _WalletTile(wallet: wallet);
-                },
-                separatorBuilder: (_, index) {
-                  return Divider();
-                },
-                itemCount: userWallets.length,
+          Expanded(
+            child: RefreshIndicator(
+              color: AppColors.blue,
+              child: wallets.maybeWhen(
+                orElse: () => Center(
+                    child: Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Loader(),
+                )),
+                data: (userWallets) => ListView.separated(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  itemBuilder: (_, index) {
+                    final wallet = userWallets[index];
+                    return _WalletTile(wallet: wallet);
+                  },
+                  separatorBuilder: (_, index) {
+                    return Divider();
+                  },
+                  itemCount: userWallets.length,
+                ),
               ),
+              onRefresh: () async {
+                context.refresh(walletsProvider);
+              },
             ),
           ),
         ],
