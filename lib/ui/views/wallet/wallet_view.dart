@@ -48,10 +48,17 @@ class WalletView extends ConsumerWidget {
               color: AppColors.blue,
               child: wallets.maybeWhen(
                 orElse: () => Center(
-                    child: Padding(
-                  padding: const EdgeInsets.only(top: 8),
-                  child: Loader(),
-                )),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Loader(),
+                  ),
+                ),
+                loading: () => Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Loader(),
+                  ),
+                ),
                 data: (userWallets) => ListView.separated(
                   padding: EdgeInsets.symmetric(horizontal: 8),
                   itemBuilder: (_, index) {
